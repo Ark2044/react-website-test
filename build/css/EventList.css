@@ -1,0 +1,11 @@
+/* CardList.css */
+.card-list {
+    display: grid;
+    justify-items: center
+  }
+  
+  .custom-card {
+    margin-bottom: 20px;
+  }
+  
+  

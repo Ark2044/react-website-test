@@ -1,0 +1,10 @@
+/* CardList.css */
+.dynamic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(33.33%, 1fr)); /* Adjust the width based on your layout */
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+    height: auto;
+  }
+  
