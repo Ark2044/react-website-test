@@ -1,9 +1,9 @@
-// ReachUs.js
+// ContactUs.js
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const ReachUs = () => {
+const ContactUs = () => {
   return (
     <Box
       sx={{
@@ -34,4 +34,4 @@ const ReachUs = () => {
   );
 };
 
-export default ReachUs;
+export default ContactUs;
