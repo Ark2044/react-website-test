@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useSpring, animated } from "react-spring";
 import IconButton from "@mui/material/IconButton";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 export const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [springProps, setSpringProps] = useSpring(() => ({
+    opacity: 1,
+    transform: `translateX(-${activeIndex * 100}%)`,
+  }));
+
   const items = [
     {
       title: "August: Tarang",
@@ -79,7 +85,14 @@ export const Carousel = () => {
       newIndex = items.length - 1;
     }
 
-    setActiveIndex(newIndex);
+    setSpringProps({
+      opacity: 0,
+      transform: `translateX(-${newIndex * 100}%)`,
+      onRest: () => {
+        setActiveIndex(newIndex);
+        setSpringProps({ opacity: 1 });
+      },
+    });
   };
 
   return (
@@ -91,12 +104,13 @@ export const Carousel = () => {
         overflow: "hidden",
       }}
     >
-      <div
+      <animated.div
         className="carousel"
         style={{
           display: "flex",
-          transition: "transform 0.5s",
-          transform: `translateX(-${activeIndex * 100}%)`,
+          transition: "opacity 0.5s, transform 0.5s",
+          opacity: springProps.opacity,
+          transform: springProps.transform,
         }}
       >
         {items.map((item, index) => (
@@ -130,15 +144,14 @@ export const Carousel = () => {
             </div>
           </div>
         ))}
-      </div>
+      </animated.div>
 
-      {/* Navigators outside the carousel container */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginTop: "10px", // Adjust as needed
+          marginTop: "10px",
         }}
       >
         <IconButton

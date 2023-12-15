@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Element,
+  Link as ScrollLink,
+  animateScroll as scroll,
+} from "react-scroll";
 
 function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,9 +24,9 @@ function ScrollToTopButton() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+    scroll.scrollToTop({
+      duration: 1000,
+      smooth: "easeInOutQuart",
     });
   };
 
