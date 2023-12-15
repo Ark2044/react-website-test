@@ -3,6 +3,7 @@ import React from 'react';
 import AugustEventList from './eventcards/AugustEventList';
 import SeptemberEventList from './eventcards/SeptemberEventList';
 import OctoberEventList from './eventcards/OctoberEventList';
+import DecemberEventList from './eventcards/DecemberEventList';
 function Events_2023_24() {
   return (
     <div>
@@ -13,7 +14,8 @@ function Events_2023_24() {
       <SeptemberEventList/>
       <h1>October</h1>
       <OctoberEventList/>
-
+      <h1>December</h1>
+      <DecemberEventList/> 
     </div>
   );
 }

@@ -28,7 +28,7 @@ const cardData = [
         date: "5th October 2023",
         imageSrc: "/images/events-2023-24/TeachersDayPost.svg",
         instagramLink: "https://www.instagram.com/p/CzQKK70o-tg/",
-      //   reportLink: "/Report-PDF/"
+        reportLink: "/Report-PDF/World Teacher's Day .pdf"
       },
       {
         name: "Bandra Fair Appreciation",
@@ -56,7 +56,14 @@ const cardData = [
         date: "18th October 2023",
         imageSrc: "/images/events-2023-24/Foodfest23.jpg",
         instagramLink: "https://www.instagram.com/p/Czn-uKiN_u6/",
-        reportLink: "/Report-PDF/Food Fest.pdf"
+        reportLink: "/Report-PDF/FoodFest.pdf"
+      },
+      {
+        name: "National Unity Day",
+        date: "31st October 2023",
+        imageSrc: "/images/events-2023-24/NationalUnityDay.svg",
+        // instagramLink: "",
+        reportLink: "/Report-PDF/National Unity Day.pdf"
       },
 
 

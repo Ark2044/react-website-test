@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const apiUrl = "/get-volunteer";
 
 function Vol_Data() {
-  const [srno, setSrno] = useState('');
+  const [srno, setSrno] = useState("");
   const [volunteerData, setVolunteerData] = useState(null);
 
   const handleFormSubmit = async (e) => {
@@ -13,7 +13,7 @@ function Vol_Data() {
       const response = await axios.post(apiUrl, { srno });
       setVolunteerData(response.data);
     } catch (error) {
-      console.error('Error fetching volunteer data:', error);
+      console.error("Error fetching volunteer data:", error);
     }
   };
 
@@ -39,9 +39,9 @@ function Vol_Data() {
 
     return (
       <div>
-        {sortedCategories.map(category => (
+        {sortedCategories.map((category) => (
           <div key={category}>
-            <h2 className='event-category'>{category}</h2>
+            <h2 className="event-category">{category}</h2>
             <table border="1">
               <thead>
                 <tr>
@@ -54,7 +54,11 @@ function Vol_Data() {
                 {eventsByCategory[category].events.map((event) => (
                   <tr key={event._id}>
                     <td>{event.eventname}</td>
-                    <td>{event.date ? new Date(event.date).toLocaleDateString() : 'No Date Available'}</td>
+                    <td>
+                      {event.date
+                        ? new Date(event.date).toLocaleDateString()
+                        : "No Date Available"}
+                    </td>
                     <td>{event.hoursalloted}</td>
                   </tr>
                 ))}
@@ -84,7 +88,9 @@ function Vol_Data() {
     <div>
       <h1 id="title">Volunteer Information</h1>
       <form className="form" onSubmit={handleFormSubmit}>
-        <label htmlFor="srno" id='srno'>Enter Serial Number:</label>
+        <label htmlFor="srno" id="srno">
+          Enter Serial Number:
+        </label>
         <input
           type="text"
           id="srno"
@@ -93,7 +99,9 @@ function Vol_Data() {
           value={srno}
           onChange={(e) => setSrno(e.target.value)}
         />
-        <button type="submit" id="btn">Submit</button>
+        <button type="submit" id="btn">
+          Submit
+        </button>
       </form>
 
       {volunteerData && (
@@ -115,11 +123,14 @@ function Vol_Data() {
             </tbody>
           </table>
 
-          {volunteerData.volunteerData.eventsattained && volunteerData.volunteerData.eventsattained.length > 0 && (
-            <div>
-              {getTablesByEventCategory(volunteerData.volunteerData.eventsattained)}
-            </div>
-          )}
+          {volunteerData.volunteerData.eventsattained &&
+            volunteerData.volunteerData.eventsattained.length > 0 && (
+              <div>
+                {getTablesByEventCategory(
+                  volunteerData.volunteerData.eventsattained
+                )}
+              </div>
+            )}
         </div>
       )}
     </div>
