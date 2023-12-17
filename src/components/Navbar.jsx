@@ -1,179 +1,231 @@
 // src/components/Navbar.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function Navbar() {
-  const [isTeamsDropdownVisible, setTeamsDropdownVisible] = useState(false);
-  const [isEventsDropdownVisible, setEventsDropdownVisible] = useState(false);
-  // const [isMenuOpen, setMenuOpen] = useState(false);
-  // const navigate = useNavigate();
+  const [teamsAnchorEl, setTeamsAnchorEl] = useState(null);
+  const [eventsAnchorEl, setEventsAnchorEl] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const toggleTeamsDropdown = () => {
-    setTeamsDropdownVisible(!isTeamsDropdownVisible);
+  const handleTeamsMenuClick = (event) => {
+    setTeamsAnchorEl(event.currentTarget);
   };
 
-  const toggleEventsDropdown = () => {
-    setEventsDropdownVisible(!isEventsDropdownVisible);
+  const handleTeamsMenuClose = () => {
+    setTeamsAnchorEl(null);
+  };
+
+  const handleEventsMenuClick = (event) => {
+    setEventsAnchorEl(event.currentTarget);
+  };
+
+  const handleEventsMenuClose = () => {
+    setEventsAnchorEl(null);
+  };
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuOpen(false);
   };
 
   const handleLinkClick = (url) => {
-    // Close all dropdowns
-    toggleTeamsDropdown();
-    toggleEventsDropdown(); // Add more toggles if needed for other dropdowns
-
-    // Navigate to the specified URL
-    window.location.href = url;
+    handleTeamsMenuClose();
+    handleEventsMenuClose();
+    handleMobileMenuClose();
   };
 
-  // const MyComponent = () => {
-  //   const navigate = useNavigate();
-
-  //   const handleClick = (url) => {
-  //     // Close all dropdowns
-  //     toggleTeamsDropdown();
-  //     toggleEventsDropdown(); // Add more toggles if needed for other dropdowns
-
-  //     // Navigate to the specified URL without a full page reload
-  //     navigate(url);
-  //   };
-  // }
-
-  // const handleClick = () => {
-  //   document.getElementById("nav-list").style.width="0";
-  // }
-
-  // const handleToggleMenu = () => {
-  //   setMenuOpen(!isMenuOpen);
-  // };
-
-  // const handleLinkClick = (url) => {
-  //   // Close all dropdowns and the menu
-  //   setTeamsDropdownVisible(false);
-  //   setEventsDropdownVisible(false);
-  //   setMenuOpen(false);
-
-  //   // Navigate to the specified URL without a full page reload
-  //   navigate(url);
-  //};
-
-  // useEffect(() => {
-  //   const closeMenuOnOutsideClick = (event) => {
-  //     const sidebar = document.getElementById('nav-list');
-  //     const menuIcon = document.getElementById('check');
-
-  //     if (sidebar && menuIcon && !sidebar.contains(event.target) && event.target !== menuIcon) {
-  //       setMenuOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener('click', closeMenuOnOutsideClick);
-
-  //   return () => {
-  //     document.removeEventListener('click', closeMenuOnOutsideClick);
-  //   };
-  // }, []);
+  const navigationLinks = [
+    { label: "Home", to: "/" },
+    { label: "Vol.Data", to: "/vol_data" },
+    {
+      label: "Teams",
+      onClick: handleTeamsMenuClick,
+      endIcon: <ExpandMoreIcon />,
+      items: [
+        { label: "Team 2023-24", to: "/team_2023_24" },
+        // Add more dropdown items if needed
+      ],
+    },
+    {
+      label: "Events",
+      onClick: handleEventsMenuClick,
+      endIcon: <ExpandMoreIcon />,
+      items: [
+        { label: "Events 2023-24", to: "/events_2023_24" },
+        // Add more dropdown items if needed
+      ],
+    },
+    { label: "Contact Us", to: "/contactus" },
+    // Add more navigation links if needed
+  ];
 
   return (
-    <header className="header" id="header">
-      {/* NSS logo */}
-      <a className="nss-logo" href="https://nsscrce.org/">
-        <img src="/images/logos/nss-logo.svg" alt="NSS Logo" />
-      </a>
-      {/* FRCRCE logo */}
-      <a className="father-logo">
-        <img src="/images/logos/father-logo.svg" alt="Father Logo" />
-      </a>
-      <a className="crce-logo" href="http://frcrce.ac.in/">
-        <img src="/images/logos/crce-logo.svg" alt="CRCE Logo" />
-      </a>
-      {/* Page title */}
-      <div className="nss-title animate__animated animate__heartBeat animate__slower animate__repeat-2">
-        <a href="#">
-          <h1>NSS CRCE</h1>
-        </a>
-        {/* removed site link */}
-      </div>
-
-      <input
-        type="checkbox"
-        id="check" /*checked={isMenuOpen} onClick={toggleTeamsDropdown}*/
-      />
-      <label for="check" className="icon">
-        <i className="fa fa-bars" id="menu-icon"></i>
-        <i className="fa fa-close" id="close-icon"></i>
-      </label>
-
-      <ul id="nav-list" /*className={isMenuOpen ? 'open' : ''}*/>
-        <li>
-          <Link
-            to="/"
-            style={{ color: "blue" }}
-            onClick={() => handleLinkClick("/")}
-          >
-            Home
+    <AppBar className="animate__animated animate__fadeInDown">
+      <Toolbar className="animate__animated animate__fadeIn">
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <img
+            src="/images/logos/nss-logo.svg"
+            alt="NSS Logo"
+            style={{
+              width: 30,
+              height: 30,
+              marginRight: 30,
+              transform: "scale(3.5)",
+              transition: "transform 0.2s",
+            }}
+          />
+          <img
+            src="/images/logos/father-logo.svg"
+            alt="Father Logo"
+            style={{
+              width: 30,
+              height: 25,
+              marginRight: 38,
+              transform: "scale(3.5)",
+              transition: "transform 0.2s",
+            }}
+          />
+          <img
+            src="/images/logos/crce-logo.svg"
+            alt="CRCE Logo"
+            style={{
+              width: 50,
+              height: 45,
+              marginRight: 10,
+              transform: "scale(3)",
+              transition: "transform 0.2s",
+            }}
+          />
+        </Box>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            NSS CRCE
           </Link>
-        </li>
-        <li>
-          <Link
-            to="/vol_data"
-            style={{ color: "blue" }}
-            onClick={() => handleLinkClick("/vol_data")}
-          >
-            Vol.Data
-          </Link>
-        </li>
-        <li className="dropdown">
-          <div className="dropdown-button" onClick={toggleTeamsDropdown}>
-            <button
-              className={`dropbtn${isTeamsDropdownVisible ? " active" : ""}`}
-            >
-              Teams ▼ {/* Inverted triangle icon */}
-            </button>
-          </div>
-          {isTeamsDropdownVisible && (
-            <div className="dropdown-content">
-              <Link
-                to="/team_2023_24"
-                onClick={() => handleLinkClick("/team_2023_24")}
+        </Typography>
+
+        {/* Hamburger icon for small screens */}
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleMobileMenuToggle}
+          sx={{ display: { xs: "flex", md: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        {/* Navigation links */}
+        <div
+          sx={{
+            display: {
+              xs: mobileMenuOpen ? "flex" : "none",
+              md: "flex",
+              "@media screen and (max-width: 960px)": {
+                md: "none",
+              },
+            },
+          }}
+        >
+          {navigationLinks.map((link, index) =>
+            // Render a Button with a Menu for dropdowns
+            link.items ? (
+              <React.Fragment key={index}>
+                <Button
+                  key={index}
+                  color="inherit"
+                  onClick={link.onClick}
+                  aria-controls={`${link.label.toLowerCase()}-menu`}
+                  aria-haspopup="true"
+                >
+                  {link.label}
+                  {link.endIcon}
+                </Button>
+                <Menu
+                  id={`${link.label.toLowerCase()}-menu`}
+                  anchorEl={
+                    link.label === "Teams" ? teamsAnchorEl : eventsAnchorEl
+                  }
+                  open={
+                    link.label === "Teams"
+                      ? Boolean(teamsAnchorEl)
+                      : Boolean(eventsAnchorEl)
+                  }
+                  onClose={
+                    link.label === "Teams"
+                      ? handleTeamsMenuClose
+                      : handleEventsMenuClose
+                  }
+                >
+                  {link.items.map((item, subIndex) => (
+                    <MenuItem
+                      key={subIndex}
+                      component={Link}
+                      to={item.to}
+                      onClick={() => handleLinkClick(item.to)}
+                    >
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </React.Fragment>
+            ) : (
+              // Render a simple Button for regular links
+              <Button
+                key={index}
+                color="inherit"
+                component={link.to ? Link : "button"}
+                to={link.to}
+                onClick={link.onClick}
+                endIcon={link.endIcon}
               >
-                Team 2023-24
-              </Link>
-            </div>
+                {link.label}
+              </Button>
+            )
           )}
-        </li>
-        <li className="dropdown">
-          <div className="dropdown-button" onClick={toggleEventsDropdown}>
-            <button
-              className={`dropbtn${isEventsDropdownVisible ? " active" : ""}`}
-            >
-              Events ▼ {/* Inverted triangle icon */}
-            </button>
-          </div>
-          {isEventsDropdownVisible && (
-            <div className="dropdown-content">
-              <Link
-                to="/events_2023_24"
-                onClick={() => handleLinkClick("/events_2023_24")}
-              >
-                Events 2023-24
-              </Link>
-            </div>
-          )}
-        </li>
-        <li>
-          <Link
-            to="/contactus"
-            style={{ color: "blue" }}
-            onClick={() => handleLinkClick("/contactus")}
-          >
-            Contact Us
-          </Link>
-        </li>
+        </div>
 
-        {/* Add more navigation links */}
-      </ul>
-    </header>
+        {/* Drawer for small screens */}
+        <Drawer
+          anchor="left"
+          open={mobileMenuOpen}
+          onClose={handleMobileMenuToggle}
+        >
+          <List>
+            {navigationLinks.map((link, index) => (
+              <ListItem
+                key={index}
+                button
+                onClick={() => handleLinkClick(link.to)}
+                aria-controls={link.items && `${link.label.toLowerCase()}-menu`}
+                aria-haspopup={link.items && "true"}
+              >
+                {link.label}
+                {link.items && link.endIcon}
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </Toolbar>
+    </AppBar>
   );
 }
 
