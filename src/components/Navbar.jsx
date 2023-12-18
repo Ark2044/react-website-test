@@ -80,7 +80,14 @@ function Navbar() {
   return (
     <AppBar className="animate__animated animate__fadeInDown">
       <Toolbar className="animate__animated animate__fadeIn">
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        {/* Logos */}
+        <Box
+          sx={{
+            display: { xs: "flex", md: "flex" },
+            alignItems: "center",
+            flexGrow: 1,
+          }}
+        >
           <img
             src="/images/logos/nss-logo.svg"
             alt="NSS Logo"
@@ -115,6 +122,8 @@ function Navbar() {
             }}
           />
         </Box>
+
+        {/* Typography */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ color: "white", textDecoration: "none" }}>
             NSS CRCE
@@ -124,7 +133,7 @@ function Navbar() {
         {/* Hamburger icon for small screens */}
         <IconButton
           size="large"
-          edge="start"
+          edge="end"
           color="inherit"
           aria-label="menu"
           onClick={handleMobileMenuToggle}
@@ -133,20 +142,16 @@ function Navbar() {
           <MenuIcon />
         </IconButton>
 
-        {/* Navigation links */}
-        <div
+        {/* Navigation links for medium screens */}
+        <Box
           sx={{
-            display: {
-              xs: mobileMenuOpen ? "flex" : "none",
-              md: "flex",
-              "@media screen and (max-width: 960px)": {
-                md: "none",
-              },
-            },
+            display: { xs: "none", md: "flex" },
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
           }}
         >
           {navigationLinks.map((link, index) =>
-            // Render a Button with a Menu for dropdowns
             link.items ? (
               <React.Fragment key={index}>
                 <Button
@@ -188,7 +193,6 @@ function Navbar() {
                 </Menu>
               </React.Fragment>
             ) : (
-              // Render a simple Button for regular links
               <Button
                 key={index}
                 color="inherit"
@@ -201,27 +205,69 @@ function Navbar() {
               </Button>
             )
           )}
-        </div>
+        </Box>
 
         {/* Drawer for small screens */}
         <Drawer
-          anchor="left"
+          anchor="right"
           open={mobileMenuOpen}
           onClose={handleMobileMenuToggle}
         >
-          <List>
-            {navigationLinks.map((link, index) => (
-              <ListItem
-                key={index}
-                button
-                onClick={() => handleLinkClick(link.to)}
-                aria-controls={link.items && `${link.label.toLowerCase()}-menu`}
-                aria-haspopup={link.items && "true"}
-              >
-                {link.label}
-                {link.items && link.endIcon}
-              </ListItem>
-            ))}
+          <List sx={{ display: "flex", flexDirection: "column" }}>
+            {navigationLinks.map((link, index) =>
+              link.items ? (
+                <React.Fragment key={index}>
+                  <Button
+                    key={index}
+                    color="inherit"
+                    onClick={link.onClick}
+                    aria-controls={`${link.label.toLowerCase()}-menu`}
+                    aria-haspopup="true"
+                  >
+                    {link.label}
+                    {link.endIcon}
+                  </Button>
+                  <Menu
+                    id={`${link.label.toLowerCase()}-menu`}
+                    anchorEl={
+                      link.label === "Teams" ? teamsAnchorEl : eventsAnchorEl
+                    }
+                    open={
+                      link.label === "Teams"
+                        ? Boolean(teamsAnchorEl)
+                        : Boolean(eventsAnchorEl)
+                    }
+                    onClose={
+                      link.label === "Teams"
+                        ? handleTeamsMenuClose
+                        : handleEventsMenuClose
+                    }
+                  >
+                    {link.items.map((item, subIndex) => (
+                      <MenuItem
+                        key={subIndex}
+                        component={Link}
+                        to={item.to}
+                        onClick={() => handleLinkClick(item.to)}
+                      >
+                        {item.label}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </React.Fragment>
+              ) : (
+                <Button
+                  key={index}
+                  color="inherit"
+                  component={link.to ? Link : "button"}
+                  to={link.to}
+                  onClick={link.onClick}
+                  endIcon={link.endIcon}
+                >
+                  {link.label}
+                </Button>
+              )
+            )}
           </List>
         </Drawer>
       </Toolbar>
