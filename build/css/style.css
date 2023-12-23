@@ -17,7 +17,7 @@
     outline: none;
     border: none;
     text-decoration: none;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     transition: all .2s linear;
 }
 
@@ -33,6 +33,15 @@ body {
     width: 100vw;
     margin-top: 7%;
 }
+
+.active {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    /* Add any other styles you want for the active state */
+}
+  
+
+
 
 /* Vol Data Page */
 
