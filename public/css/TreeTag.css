@@ -1,0 +1,182 @@
+
+
+ .Plant-1 {
+    background-color: lightgreen; 
+    
+    width: 100%;}
+   /* min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto; */
+    /* margin-top: 40px; */
+    /* z-index: -20;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    padding: 20px;
+} */
+
+ /* .home-button {
+    margin-top: 80px;
+    z-index: 2;
+}
+
+
+.plant-container .plant-card {
+    
+    margin-left: 80px;
+    margin-top: 30px;
+   padding-top: 10px;
+    height: 350px; 
+    width: 280px;
+    
+    padding: 24px;
+    
+    background-color: whitesmoke;
+    border-radius: 24px;
+    
+    box-shadow: 0px 0px 20px -1.5px darkgreen;
+    position: relative;
+    
+}
+
+.plant-card::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+   
+    background-color: darkgreen;
+    z-index: -1;
+    border-radius: inherit;
+    transition: all 0.35s ease;
+}
+
+.plant-card:hover::before {
+    transform: rotate(10deg);
+    
+    box-shadow: 0px 0px 20px -5px darkgreen;
+   
+}
+
+.plant-card .plant-img {
+    width: 100%;
+    height: 400px;
+    display: block;
+    object-fit: cover;
+    border-radius: 16px;
+    
+}
+
+.plant-card:hover .plant-img {
+    translate: 0 -14px;
+}
+
+
+
+
+
+.plant-container .plant-name{
+    margin: auto;
+    margin-top: -250px;
+    margin-left: 400px;
+    
+}
+
+.plant-info {
+    margin-top: 190px;
+}
+
+.plant-info p {
+    font-family: 'Roboto';
+    text-align: justify;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
+    font-size: 25px;
+}
+
+.campus-loc .loc-gif{
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 1078px) {
+
+    .plant-container .plant-card {
+        margin: auto;
+        margin-top: 30px;
+    }
+    .plant-container .plant-name{
+        margin-top: 50px;
+        margin-left: 5px;
+
+    }
+}
+
+@media only screen and (max-width: 421px) {
+    .Plant-1 {
+        width: min-content;
+        padding-right: 61px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .plant-container .plant-card{
+        margin-top: 40px;
+        margin: auto;
+        margin-left: 45px;
+    }
+
+    .plant-container .plant-name {
+        margin-top: 50px;
+        margin-left: 5px;
+    }
+
+    .plant-info {
+        margin-top: 80px;
+    }
+    
+    .plant-info p{
+        font-size: 20px;
+        margin-left: 30px;
+        margin-right: 10px;
+    }
+    
+    .campus-loc .loc-gif{
+        width: 300px;
+        height: 300px;
+    }
+    
+    .home {
+        margin-top: 20px;
+        margin-left: 335px;
+    }
+
+
+} */
+
+
+
+/*.plant-container h2{
+    font-family: 'Pacifico';
+}
+
+.plant-info h1 {
+    font-family: 'Pacifico';
+}
+
+.campus-loc h2{
+    font-family: 'Pacifico';
+}
+
+.campus-loc h4 {
+    margin-top: 30px;
+    font-family: 'Roboto';
+    margin-bottom: 40px;
+    font-size: 30px;
+} */
+
+
+

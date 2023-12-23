@@ -1,0 +1,19 @@
+.Tree-main .page-about {
+    margin-top: 50px;
+}
+
+/* .page-about h1 {
+    font-family: 'Mina';
+}
+
+.page-about p {
+    text-align: justify;
+    margin: 40px;
+    font-family: 'Roboto';
+} */
+
+@media (max-width: 480px) {
+    .page-about p {
+        margin: 20px;
+    }
+}

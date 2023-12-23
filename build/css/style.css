@@ -21,24 +21,17 @@
     transition: all .2s linear;
 }
 
-html {
-    /* font-size: 62.5%; */
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scroll-padding-top: 7rem;
-    height: 100%;
-}
-
 body {
     /* border: 2px solid black; */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
     background-color: white;
     text-align: center;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    margin-top: 100px;
+    width: 100vw;
+    margin-top: 7%;
 }
 
 /* Vol Data Page */
@@ -257,7 +250,9 @@ tr:hover {
 
 .footer {
     background: white;
+    background: lightblue;
     margin-top: 50px;
+
 }
 
 .footer .box-container {
@@ -323,7 +318,8 @@ tr:hover {
     margin-top: 20px;
 }
 
-.footer .box-container .box .share a {
+/* .footer .box-container .box  */
+.share a {
     border: 0px solid;
     height: 3rem;
     width: 4rem;
@@ -337,7 +333,8 @@ tr:hover {
     font-style: normal;
 }
 
-.footer .box-container .box .share a:hover {
+/* .footer .box-container .box */
+ .share a:hover {
     background: blue;
     color: white;
 }
@@ -510,3 +507,53 @@ tr:hover {
     border-radius: 50px;
     cursor: pointer;
 }
+
+.TreeMain h1{
+    text-align: center;
+    color: darkgreen;
+    font-family: 'Allerta', sans-serif;
+    font-size: 35px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.TreeMain p{
+    text-align: justify;
+    color: #201C1B;
+
+    padding: 0 50px 0 50px;
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.location{
+    align-items: center;
+    display: flex;
+    gap: 9rem;
+    padding: 2rem;
+}
+
+.location div{
+    cursor: pointer;
+    width: 25%;
+    height: 40px;
+}
+
+.location #stairs-1{
+    background-color: lightgreen;
+}
+
+.location #canteen-1{
+    background-color: lightgreen;
+}
+
+.location #church-1{
+    background-color: lightgreen;
+}
+
+.location h3{
+    font-size: large;
+    color: brown;
+}
+
+/* CSS after Bootsrap */

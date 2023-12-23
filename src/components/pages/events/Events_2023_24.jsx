@@ -6,7 +6,7 @@ import OctoberEventList from './eventcards/OctoberEventList';
 import DecemberEventList from './eventcards/DecemberEventList';
 function Events_2023_24() {
   return (
-    <div>
+    <div className="Home">
       <h1>August</h1>
       {/* Home page content */}
       <AugustEventList />

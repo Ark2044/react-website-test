@@ -1,6 +1,5 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -12,7 +11,6 @@ import {
   Box,
   Drawer,
   List,
-  ListItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -22,65 +20,95 @@ function Navbar() {
   const [eventsAnchorEl, setEventsAnchorEl] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleTeamsMenuClick = (event) => {
-    setTeamsAnchorEl(event.currentTarget);
+  const handleMenuClick = (type, event) => {
+    type === "teams"
+      ? setTeamsAnchorEl(event.currentTarget)
+      : setEventsAnchorEl(event.currentTarget);
   };
 
-  const handleTeamsMenuClose = () => {
-    setTeamsAnchorEl(null);
+  const handleMenuClose = (type) => {
+    type === "teams" ? setTeamsAnchorEl(null) : setEventsAnchorEl(null);
   };
 
-  const handleEventsMenuClick = (event) => {
-    setEventsAnchorEl(event.currentTarget);
-  };
+  const handleMobileMenuToggle = () => setMobileMenuOpen(!mobileMenuOpen);
 
-  const handleEventsMenuClose = () => {
-    setEventsAnchorEl(null);
-  };
+  const handleMobileMenuClose = () => setMobileMenuOpen(false);
 
-  const handleMobileMenuToggle = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMenuOpen(false);
-  };
-
-  const handleLinkClick = (url) => {
-    handleTeamsMenuClose();
-    handleEventsMenuClose();
+  const handleLinkClick = () => {
+    handleMenuClose("teams");
+    handleMenuClose("events");
     handleMobileMenuClose();
   };
+
+  const renderMenu = (label, anchorEl, handleClose, items) => (
+    <>
+      <Button
+        color="inherit"
+        onClick={(event) => handleMenuClick(label.toLowerCase(), event)}
+        aria-controls={`${label.toLowerCase()}-menu`}
+        aria-haspopup="true"
+      >
+        {label}
+        <ExpandMoreIcon />
+      </Button>
+      <Menu
+        id={`${label.toLowerCase()}-menu`}
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        {items.map((item, subIndex) => (
+          <MenuItem
+            key={subIndex}
+            component={NavLink} // Use NavLink directly for menu items
+            to={item.to}
+            onClick={handleLinkClick}
+          >
+            {item.label}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+
+  const Logo = ({ index }) => (
+    <img
+      src={`/images/logos/${
+        ["nss-logo", "father-logo", "crce-logo"][index]
+      }.svg`}
+      alt={`${["NSS Logo", "Father Logo", "CRCE Logo"][index]}`}
+      style={{
+        width: [30, 30, 50][index],
+        height: [30, 25, 45][index],
+        marginRight: [30, 38, 10][index],
+        transform: "scale(3)",
+        transition: "transform 0.5s",
+      }}
+    />
+  );
 
   const navigationLinks = [
     { label: "Home", to: "/" },
     { label: "Vol.Data", to: "/vol_data" },
     {
       label: "Teams",
-      onClick: handleTeamsMenuClick,
-      endIcon: <ExpandMoreIcon />,
-      items: [
+      renderMenu: renderMenu("Teams", teamsAnchorEl, handleMenuClose, [
         { label: "Team 2023-24", to: "/team_2023_24" },
-        // Add more dropdown items if needed
-      ],
+      ]),
     },
     {
       label: "Events",
-      onClick: handleEventsMenuClick,
-      endIcon: <ExpandMoreIcon />,
-      items: [
+      renderMenu: renderMenu("Events", eventsAnchorEl, handleMenuClose, [
         { label: "Events 2023-24", to: "/events_2023_24" },
-        // Add more dropdown items if needed
-      ],
+      ]),
     },
+    { label: "Tree Tag", to: "/tree_tag_main" },
     { label: "Contact Us", to: "/contactus" },
-    // Add more navigation links if needed
   ];
 
   return (
-    <AppBar className="animate__animated animate__fadeInDown">
-      <Toolbar className="animate__animated animate__fadeIn">
-        {/* Logos */}
+    <AppBar className="animate_animated animate_fadeInDown">
+      <Toolbar className="animate_animated animate_fadeIn">
         <Box
           sx={{
             display: { xs: "flex", md: "flex" },
@@ -88,49 +116,15 @@ function Navbar() {
             flexGrow: 1,
           }}
         >
-          <img
-            src="/images/logos/nss-logo.svg"
-            alt="NSS Logo"
-            style={{
-              width: 30,
-              height: 30,
-              marginRight: 30,
-              transform: "scale(3.5)",
-              transition: "transform 0.2s",
-            }}
-          />
-          <img
-            src="/images/logos/father-logo.svg"
-            alt="Father Logo"
-            style={{
-              width: 30,
-              height: 25,
-              marginRight: 38,
-              transform: "scale(3.5)",
-              transition: "transform 0.2s",
-            }}
-          />
-          <img
-            src="/images/logos/crce-logo.svg"
-            alt="CRCE Logo"
-            style={{
-              width: 50,
-              height: 45,
-              marginRight: 10,
-              transform: "scale(3)",
-              transition: "transform 0.2s",
-            }}
-          />
+          {[...Array(3)].map((_, i) => (
+            <Logo key={i} index={i} />
+          ))}
         </Box>
 
-        {/* Typography */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-            NSS CRCE
-          </Link>
+          NSS CRCE
         </Typography>
 
-        {/* Hamburger icon for small screens */}
         <IconButton
           size="large"
           edge="end"
@@ -142,7 +136,6 @@ function Navbar() {
           <MenuIcon />
         </IconButton>
 
-        {/* Navigation links for medium screens */}
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
@@ -152,120 +145,52 @@ function Navbar() {
           }}
         >
           {navigationLinks.map((link, index) =>
-            link.items ? (
-              <React.Fragment key={index}>
-                <Button
-                  key={index}
-                  color="inherit"
-                  onClick={link.onClick}
-                  aria-controls={`${link.label.toLowerCase()}-menu`}
-                  aria-haspopup="true"
-                >
-                  {link.label}
-                  {link.endIcon}
-                </Button>
-                <Menu
-                  id={`${link.label.toLowerCase()}-menu`}
-                  anchorEl={
-                    link.label === "Teams" ? teamsAnchorEl : eventsAnchorEl
-                  }
-                  open={
-                    link.label === "Teams"
-                      ? Boolean(teamsAnchorEl)
-                      : Boolean(eventsAnchorEl)
-                  }
-                  onClose={
-                    link.label === "Teams"
-                      ? handleTeamsMenuClose
-                      : handleEventsMenuClose
-                  }
-                >
-                  {link.items.map((item, subIndex) => (
-                    <MenuItem
-                      key={subIndex}
-                      component={Link}
-                      to={item.to}
-                      onClick={() => handleLinkClick(item.to)}
-                    >
-                      {item.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </React.Fragment>
+            link.renderMenu ? (
+              <React.Fragment key={index}>{link.renderMenu}</React.Fragment>
             ) : (
-              <Button
+              <NavLink
                 key={index}
                 color="inherit"
-                component={link.to ? Link : "button"}
                 to={link.to}
-                onClick={link.onClick}
-                endIcon={link.endIcon}
+                onClick={handleLinkClick}
               >
-                {link.label}
-              </Button>
+                <Button endIcon={link.endIcon} style={{ color: "white" }}>
+                  {link.label}
+                </Button>
+              </NavLink>
             )
           )}
         </Box>
 
-        {/* Drawer for small screens */}
         <Drawer
           anchor="right"
           open={mobileMenuOpen}
           onClose={handleMobileMenuToggle}
+          PaperProps={{
+            style: {
+              color: "blue",
+              backgroundColor: "rgba(255,255,255,0.6)",
+            },
+          }}
         >
           <List sx={{ display: "flex", flexDirection: "column" }}>
             {navigationLinks.map((link, index) =>
-              link.items ? (
-                <React.Fragment key={index}>
-                  <Button
-                    key={index}
-                    color="inherit"
-                    onClick={link.onClick}
-                    aria-controls={`${link.label.toLowerCase()}-menu`}
-                    aria-haspopup="true"
-                  >
-                    {link.label}
-                    {link.endIcon}
-                  </Button>
-                  <Menu
-                    id={`${link.label.toLowerCase()}-menu`}
-                    anchorEl={
-                      link.label === "Teams" ? teamsAnchorEl : eventsAnchorEl
-                    }
-                    open={
-                      link.label === "Teams"
-                        ? Boolean(teamsAnchorEl)
-                        : Boolean(eventsAnchorEl)
-                    }
-                    onClose={
-                      link.label === "Teams"
-                        ? handleTeamsMenuClose
-                        : handleEventsMenuClose
-                    }
-                  >
-                    {link.items.map((item, subIndex) => (
-                      <MenuItem
-                        key={subIndex}
-                        component={Link}
-                        to={item.to}
-                        onClick={() => handleLinkClick(item.to)}
-                      >
-                        {item.label}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </React.Fragment>
+              link.renderMenu ? (
+                <React.Fragment key={index}>{link.renderMenu}</React.Fragment>
               ) : (
-                <Button
+                <NavLink
                   key={index}
                   color="inherit"
-                  component={link.to ? Link : "button"}
                   to={link.to}
-                  onClick={link.onClick}
-                  endIcon={link.endIcon}
+                  onClick={() => {
+                    handleLinkClick();
+                    handleMobileMenuClose();
+                  }}
                 >
-                  {link.label}
-                </Button>
+                  <Button endIcon={link.endIcon} style={{color: "blue"}}>
+                    {link.label}
+                  </Button>
+                </NavLink>
               )
             )}
           </List>
